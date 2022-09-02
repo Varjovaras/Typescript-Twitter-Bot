@@ -37,10 +37,10 @@ const checkFriday = () => {
 	console.log('Day: ', day);
 	console.log('Hours: ', hours);
 
-	if (day === 5 && hours >= 8 && hours < 9) {
+	if (day === 5 && hours > 5 && hours < 6) {
 		void main();
 	}
 };
+
 console.log('Deployed');
-checkFriday();
 setInterval(checkFriday, 3600000); // one hour check.
