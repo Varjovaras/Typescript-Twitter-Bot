@@ -21,6 +21,7 @@ async function main() {
 			accessToken: access,
 			accessSecret: accessSecret,
 		});
+		console.log('pasalusta');
 
 		// First, post all your images to Twitter
 		const mediaIds = await Promise.all([
