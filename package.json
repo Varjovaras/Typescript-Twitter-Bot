@@ -2,8 +2,9 @@
 	"name": "typescript-twitter",
 	"version": "1.0.0",
 	"description": "typescript twitter bot",
-	"main": "index.ts",
+	"main": "index.js",
 	"scripts": {
+		"build": "tsc",
 		"tsc": "tsc",
 		"ts-node": "ts-node",
 		"start": "ts-node index.ts",
