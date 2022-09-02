@@ -43,7 +43,7 @@ const checkFriday = () => {
 	console.log('Day: ', day);
 	console.log('Hours: ', hours);
 
-	if (day === 5 && hours >= 5 && hours < 6) {
+	if (day === 5 && hours >= 8 && hours < 9) {
 		void main();
 	}
 };
