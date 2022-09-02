@@ -2,13 +2,14 @@ import { TwitterApi } from 'twitter-api-v2';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-async function main() {
+const main = async () => {
 	console.log('Trying to tweet');
 
-	const access = process.env.ACCESS_TOKEN;
-	const accessSecret = process.env.ACCESS_TOKEN_SECRET;
-	const consumer = process.env.CONSUMER_KEY;
-	const consumerSecret = process.env.CONSUMER_SECRET;
+	const access = process.env.ACCESS_TOKEN ?? '';
+	const accessSecret = process.env.ACCESS_TOKEN_SECRET ?? '';
+	const consumer = process.env.CONSUMER_KEY ?? '';
+	const consumerSecret = process.env.CONSUMER_SECRET ?? '';
+
 	const client = new TwitterApi({
 		appKey: consumer,
 		appSecret: consumerSecret,
@@ -29,7 +30,7 @@ async function main() {
 		media_ids: mediaIds,
 	});
 	console.log('Posted');
-}
+};
 
 const checkFriday = () => {
 	const day = new Date().getUTCDay();
@@ -37,10 +38,11 @@ const checkFriday = () => {
 	console.log('Day: ', day);
 	console.log('Hours: ', hours);
 
-	if (day === 5 && hours > 5 && hours < 6) {
+	if (day === 5 && hours >= 5 && hours < 6) {
 		void main();
 	}
 };
 
 console.log('Deployed');
+checkFriday();
 setInterval(checkFriday, 3600000); // one hour check.
