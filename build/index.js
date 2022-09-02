@@ -37,7 +37,7 @@ const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log('Main');
+        console.log('Trying to tweet');
         if (typeof process.env.BEARER_TOKEN === 'string' &&
             typeof process.env.ACCESS_TOKEN === 'string' &&
             typeof process.env.ACCESS_TOKEN_SECRET === 'string' &&
@@ -58,7 +58,7 @@ function main() {
                 // file path
                 client.v1.uploadMedia('./perstai.jpg'),
             ]);
-            console.log('Postingg');
+            console.log('Posting');
             // mediaIds is a string[], can be given to .tweet
             yield client.v1.tweet('Perstai!', {
                 media_ids: mediaIds,
@@ -74,7 +74,7 @@ const checkFriday = () => {
     const hours = new Date().getUTCHours();
     console.log('Day: ', day);
     console.log('Hours: ', hours);
-    if (day === 5 && hours >= 7 && hours < 8) {
+    if (day === 5 && hours >= 8 && hours < 9) {
         void main();
     }
 };
