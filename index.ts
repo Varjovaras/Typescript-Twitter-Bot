@@ -2,6 +2,8 @@ import { TwitterApi } from 'twitter-api-v2';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
+let postingTime = 5; //default global posting time UTC. Might change every friday 0:00 UTC
+
 const main = async () => {
 	console.log('Trying to tweet');
 
@@ -16,29 +18,33 @@ const main = async () => {
 		accessToken: access,
 		accessSecret: accessSecret,
 	});
-	console.log('pasalusta');
 
-	// First, post all your images to Twitter
-	const mediaIds = await Promise.all([
-		// file path
-		client.v1.uploadMedia('./perstai.jpg'),
-	]);
-	console.log('Posting');
+	const mediaIds = await Promise.all([client.v1.uploadMedia('./perstai.jpg')]);
 
-	// mediaIds is a string[], can be given to .tweet
 	await client.v1.tweet('Perstai!', {
 		media_ids: mediaIds,
 	});
 	console.log('Posted');
 };
 
-const checkFriday = () => {
-	const day = new Date().getUTCDay();
-	const hours = new Date().getUTCHours();
-	console.log('Day: ', day);
-	console.log('Hours: ', hours);
+const getPostingTime = (min: number, max: number) => {
+	return Math.floor(min + Math.random() * (max - min + 1));
+};
 
-	if (day === 5 && hours >= 5 && hours < 6) {
+const checkFriday = () => {
+	const currentDay = new Date().getUTCDay();
+	const currentHour = new Date().getUTCHours();
+
+	//change posting time on friday
+	if (currentDay === 5 && currentHour === 9) {
+		postingTime = getPostingTime(2, 7); //utc hours 2-7
+	}
+
+	console.log('Day: ', currentDay);
+	console.log('Hours: ', currentHour);
+	console.log('Posting time: ', postingTime);
+
+	if (currentDay === 5 && currentHour === postingTime) {
 		void main();
 	}
 };
